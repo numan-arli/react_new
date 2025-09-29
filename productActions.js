@@ -13,7 +13,11 @@ export function deleteProduct(product){
     debugger;
     return fetch (url,{
       method : "Delete",
-      headers : { "Content-Type": "application/json" },
+      headers: 
+       { 
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+       },
       body : JSON.stringify(product)
     })
     .then(response => response.json())
@@ -40,8 +44,12 @@ export function getProductsSuccess(products){
     }
     return fetch(url,{
                       method: "GET",
-                      headers: { "Content-Type": "application/json" }
-                    })
+                    headers: 
+                            { 
+                              "Content-Type": "application/json",
+                              "Authorization": "Bearer " + localStorage.getItem("token")
+                            }
+                     })
     .then(response =>response.json())
     .then(result => dispatch(getProductsSuccess(result)));
  }
@@ -67,7 +75,11 @@ export function getProductsSuccess(products){
   debugger;
   return fetch(url, {
       method: product.productId ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
+     headers: 
+       { 
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+       },
       body: JSON.stringify(product)
   })
   .then(handleResponse)
@@ -85,9 +97,11 @@ export function saveProduct(product){
           : dispatch(createProductSuccess(savedProduct));
       })
       .catch(error => {
+        debugger;
         console.error("saveProduct hata:", error.message);
         // Burada dispatch ile hata state'e gönderilebilir
-        throw error;
+       // throw error;
+       return null;
       });
   };
 }

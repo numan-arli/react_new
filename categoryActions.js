@@ -18,9 +18,23 @@ export function getCategories(){
   //let url = "http://localhost:3003/categories";
     return fetch(url,
      { method: "GET",
-       headers: { "Content-Type": "application/json" }
+       headers: 
+       { 
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+       }
+        
+       
      })
     .then(response =>response.json())
     .then(result => dispatch(getCategoriesSuccess(result)));
  }
 }
+
+
+
+/*fetch("http://localhost:8080/api/products", {
+  headers: {
+    "Authorization": "Bearer " + localStorage.getItem("token")
+  }
+})*/
